@@ -11,8 +11,8 @@
  *
 */
 require 'config.php';
-require 'Xmlrpc.php';
-require 'Markdown.php';
+require 'lib/xmlrpc.php';
+require 'lib/markdown.php';
 use \Michelf\Markdown;
 if(substr(php_sapi_name(), 0, 3) != 'cli'){
 	quit("This Programe can only be run in CLI mode");
