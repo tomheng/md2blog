@@ -28,12 +28,12 @@ if(stripos($markdown_filepath, '.') !== 0 && $config['markdown_file_dir']){
 }
 $markdown_filepath = realpath($markdown_filepath);
 if(!file_exists($markdown_filepath)){
-	quit("没有找到文件{$markdown_filepath}");
+	quit("can not find file {$markdown_filepath}");
 }
 
 $fp = fopen($markdown_filepath, 'r+');
 if(!$fp){
-	quit('无法打开文件');
+	quit("can not open file {$markdown_filepath}");
 }
 $post = array(
 	'post_content' => '',
@@ -71,13 +71,13 @@ while(($line = fgets($fp)) !== false){
 }
 
 if(!feof($fp)){
-	quit('出现错误');
+	quit('an unexpected error occur');
 }
 if(!$post['post_title'] || !$post['post_content']){
-	quit('文章没有标题或缺少内容');	
+	quit('markdown file must have title file and content');	
 }
 
-//处理本地图片
+//upload local image file to remote media repository
 $regex = '#(?<=(\(|:){1})\s?[^\)\s]*\.(?:jpg|jpeg|gif|png)(?=(\)|\s){1})#ie';
 $replacement = "upload_image('$0')";
 $post['post_content'] = preg_replace($regex, $replacement, $post['post_content'], -1, $upload_img_count);
@@ -136,7 +136,7 @@ function upload_image($img_path){
 	if(!file_exists($img_path)){
 		return $img_path;
 	}
-	progress("start upload $img_path");
+	show_tips("start upload $img_path");
 	$image_info = getimagesize($img_path);
 	$image_data = file_get_contents($img_path);
 	global $config;
@@ -172,7 +172,7 @@ function xmlrpc(){
 	if($instance == null){
 		global $config;
 		if(!$config['xmlrpc_server'] || !$config['xmlrpc_port']){
-			quit('请配置好RPC Server网址和端口号');
+			quit('Please set RPC Server address and port');
 		}
 		$instance = new CI_Xmlrpc();
 		$instance->server($config['xmlrpc_server'], $config['xmlrpc_port']);
@@ -187,6 +187,6 @@ function quit($msg, $exit_code = 0){
 }
 
 //progress
-function progress($msg){
+function show_tips($msg){
 	echo $msg.PHP_EOL;
 }
