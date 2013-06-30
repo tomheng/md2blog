@@ -11,7 +11,7 @@
  *
 */
 require 'config.php';
-require 'lib/xmlrpc.php';
+require 'lib/xmlrpc/xmlrpc.php';
 require 'lib/markdown.php';
 use \Michelf\Markdown;
 if(substr(php_sapi_name(), 0, 3) != 'cli'){

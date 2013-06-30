@@ -18,7 +18,7 @@ if ( ! function_exists('xml_parser_create'))
 	die('Your PHP installation does not support XML');
 }
 
-define('PATH', dirname(__FILE__));
+define('PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
 require PATH.'client.php';
 require PATH.'message.php';
 require PATH.'response.php';

@@ -1,4 +1,11 @@
-title: Hi, wordpress
+title:  Hi, wordpress
+
+status: publish
+author: tomheng
+comment_status: open
+ping_status: open
+sticky: 
+id: 81
 
 status:publish
 author:tomheng
